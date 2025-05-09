@@ -136,7 +136,7 @@ int main() {
     int parte2 = exp_mod(a, r, n1);
     printf("a^r mod n1 = %d\n", parte2);
 
-    //Apos os calculos, calcula o resultado de a, elevado a x, modo n1
+    //Apos os calculos, calcula o resultado de a, elevado a x, mod n1
     int resultado = (parte1 * parte2) % n1;
     printf("\nResultado final: a^x mod n1 = %d\n", resultado);
 
