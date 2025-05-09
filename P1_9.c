@@ -77,6 +77,7 @@ int main() {
     printf("Digite os valores de H, G, n, x, n1: ");
     scanf("%d %d %d %d %d", &H, &G, &n, &x, &n1);
 
+    //1 - Primeiro verifica se G e n sao primos
     printf("\nEtapa 1: Verificando se G e n sao primos entre si:\n");
     if (!sao_coprimos(G, n)) {
         printf("G e n não sao primos entre si. Divisão modular não é possível.\n");
@@ -85,6 +86,7 @@ int main() {
 
     printf("G e n sao primos entre si. Prosseguindo...\n");
 
+    //2 - Logo após, calcula o inverso modular de G no intervalo de Z
     printf("\nEtapa 2: Calculando o inverso modular de G em Z%d:\n", n);
     int G_inverso = inverso_modular(G, n);
     if (G_inverso == -1) {
@@ -93,10 +95,12 @@ int main() {
     }
     printf("Inverso de G e: %d\n", G_inverso);
 
+    //3 - Dividi H por G em Z, obtendo o valor de a
     printf("\nEtapa 3: Dividindo H por G em Z%d (a = H ⊘ G):\n", n);
     int a = (H * G_inverso) % n;
     printf("Valor de a = %d\n", a);
 
+    //4 - Verifica se a e n1 sao coprimos
     printf("\nEtapa 4: Verificando se a e n1 sao coprimos:\n");
     if (!sao_coprimos(a, n1)) {
         printf("a e n1 nao sao coprimos. Operaçao modular inválida.\n");
@@ -104,6 +108,7 @@ int main() {
     }
     printf("a e n1 sao coprimos.\n");
 
+    //5 - Para usar Fermat ou Euler, primeiro verifica se n1 e primo ou nao
     int x1;
     if (eh_primo(n1)) {
         printf("\nEtapa 5: n1 e primo. Usando Pequeno Teorema de Fermat:\n");
@@ -114,11 +119,13 @@ int main() {
     }
     printf("Valor de x1 = %d\n", x1);
 
+    //6 - Decompoe-se o x
     printf("\nEtapa 6: Decompondo x = x1 * q + r:\n");
     int q = x / x1;
     int r = x % x1;
     printf("x = %d = %d * %d + %d\n", x, x1, q, r);
 
+    //7 - Calcula-se valores intermediarios
     printf("\nEtapa 7: Calculando os valores intermediarios:\n");
     int x2 = exp_mod(a, x1, n1);
     printf("a^x1 mod n1 = %d\n", x2);
@@ -129,6 +136,7 @@ int main() {
     int parte2 = exp_mod(a, r, n1);
     printf("a^r mod n1 = %d\n", parte2);
 
+    //Apos os calculos, calcula o resultado de a, elevado a x, modo n1
     int resultado = (parte1 * parte2) % n1;
     printf("\nResultado final: a^x mod n1 = %d\n", resultado);
 
